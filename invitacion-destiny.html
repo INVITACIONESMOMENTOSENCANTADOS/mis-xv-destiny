@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - Destiny</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .page-bg-1 {
+            background-image: url('https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .page-bg-2 {
+            background-image: url('https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(1).jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .page-bg-3 {
+            background-image: url('https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(2).jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .page-bg-4 {
+            background-image: url('https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(3).jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .page-bg-5 {
+            background-image: url('https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(4).jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .page-bg-6 {
+            background-image: url('https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(6).jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .page-bg-7 {
+            background-image: url('https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(8).jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="bg-black overflow-x-hidden relative">
+
+    <!-- Audio Player Instrumental -->
+    <audio id="bg-music" autoplay loop preload="auto">
+        <source src="https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/No%20Crezcas%20M%C3%A1s%20Instrumental.mp3" type="audio/mpeg">
+    </audio>
+
+    <main class="w-full">
+        <!-- PAGINA 1 -->
+        <section id="pagina-1" class="w-full h-screen page-bg-1 relative flex items-end justify-center pb-16">
+            <button onclick="goToPage(2)" class="text-white/70 hover:text-white animate-bounce transition-colors duration-300" aria-label="Página siguiente">
+                <i class="fas fa-chevron-down text-2xl drop-shadow-lg"></i>
+            </button>
+        </section>
+
+        <!-- PAGINA 2 -->
+        <section id="pagina-2" class="w-full h-screen page-bg-2 relative flex flex-col justify-between items-center py-12">
+            <button onclick="goToPage(1)" class="text-white/70 hover:text-white transition-colors duration-300" aria-label="Página anterior">
+                <i class="fas fa-chevron-up text-2xl drop-shadow-lg"></i>
+            </button>
+
+            <!-- Reproductor de Música Estilo Reproductor Audio (Todo Rosa #BF7D83, sin fondo ni contornos oscuros) -->
+            <div class="my-auto -translate-y-56 sm:-translate-y-72 w-full max-w-xs sm:max-w-sm px-6 py-2 flex flex-col gap-4 text-[#BF7D83]">
+                
+                <!-- Barra de Progreso y Tiempos -->
+                <div class="flex flex-col gap-1.5 w-full">
+                    <div class="flex items-center justify-between text-xs font-mono text-[#BF7D83] tracking-wider font-bold">
+                        <span id="current-time">00:00</span>
+                        <span id="total-time">00:00</span>
+                    </div>
+                    <div class="relative flex items-center w-full">
+                        <input type="range" id="progress-bar" min="0" max="100" value="0" step="0.1" oninput="seekAudio(this.value)" class="w-full h-1.5 bg-[#BF7D83]/30 rounded-lg appearance-none cursor-pointer accent-[#BF7D83] hover:accent-[#BE797F] transition-all">
+                    </div>
+                </div>
+
+                <!-- Controles de Reproducción en Rosa #BF7D83 -->
+                <div class="flex items-center justify-between pt-1 px-1 text-[#BF7D83]">
+                    <button onclick="toggleShuffle(this)" class="hover:opacity-75 transition-opacity p-2 text-sm opacity-90" aria-label="Aleatorio">
+                        <i class="fas fa-random"></i>
+                    </button>
+
+                    <button onclick="restartTrack()" class="hover:opacity-75 transition-opacity p-2 text-base active:scale-90" aria-label="Anterior">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+
+                    <button id="main-play-btn" onclick="toggleMusic()" class="w-14 h-14 rounded-full bg-[#BF7D83] hover:scale-105 active:scale-95 flex items-center justify-center shadow-[0_0_20px_rgba(191,125,131,0.6)] border border-[#BF7D83]/80 transition-all duration-300" aria-label="Reproducir/Pausar">
+                        <i id="play-icon" class="fas fa-play text-xl text-white ml-0.5"></i>
+                    </button>
+
+                    <button onclick="restartTrack()" class="hover:opacity-75 transition-opacity p-2 text-base active:scale-90" aria-label="Siguiente">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+
+                    <button onclick="toggleRepeat(this)" class="hover:opacity-75 transition-opacity p-2 text-sm opacity-90" aria-label="Repetir">
+                        <i class="fas fa-redo"></i>
+                    </button>
+
+                    <button onclick="toggleHeart(this)" class="hover:opacity-75 transition-opacity p-2 text-base" aria-label="Me gusta">
+                        <i id="heart-icon" class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+
+            <button onclick="goToPage(3)" class="text-white/70 hover:text-white animate-bounce transition-colors duration-300" aria-label="Página siguiente">
+                <i class="fas fa-chevron-down text-2xl drop-shadow-lg"></i>
+            </button>
+        </section>
+
+        <!-- PAGINA 3 -->
+        <section id="pagina-3" class="w-full h-screen page-bg-3 relative flex flex-col justify-between items-center py-12">
+            <button onclick="goToPage(2)" class="text-white/70 hover:text-white transition-colors duration-300" aria-label="Página anterior">
+                <i class="fas fa-chevron-up text-2xl drop-shadow-lg"></i>
+            </button>
+            <button onclick="goToPage(4)" class="text-white/70 hover:text-white animate-bounce transition-colors duration-300" aria-label="Página siguiente">
+                <i class="fas fa-chevron-down text-2xl drop-shadow-lg"></i>
+            </button>
+        </section>
+
+        <!-- PAGINA 4 -->
+        <section id="pagina-4" class="w-full h-screen page-bg-4 relative flex flex-col justify-between items-center py-12">
+            <button onclick="goToPage(3)" class="text-white/70 hover:text-white transition-colors duration-300" aria-label="Página anterior">
+                <i class="fas fa-chevron-up text-2xl drop-shadow-lg"></i>
+            </button>
+
+            <!-- Botón Misa / Iglesia -->
+            <div class="my-auto">
+                <a href="https://www.google.com/maps/place/Holy+Family+Mission+Church/@31.8317852,-107.641994,809m/data=!3m2!1e3!4b1!4m6!3m5!1s0x86dc2075dad51873:0x292a144f3d8236e9!8m2!3d31.8317852!4d-107.641994!16s%2Fg%2F1trvlwr1?entry=ttu&g_ep=EgoyMDI2MDcyOS4wIKXMDSoASAFQAw%3D%3D" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="bg-white hover:bg-rose-50 text-[#BF7D83] font-bold px-7 py-3 rounded-full flex items-center gap-2.5 shadow-[0_4px_20px_rgba(191,125,131,0.35)] border-2 border-[#BF7D83] transition-all duration-300 hover:scale-105 active:scale-95 text-sm tracking-wide min-w-[220px] justify-center translate-y-12">
+                    <i class="fas fa-church text-[#BF7D83] text-base"></i>
+                    <span>Ubicación Misa</span>
+                </a>
+            </div>
+
+            <!-- Botón Recepción al final de la página -->
+            <div class="flex flex-col items-center gap-4">
+                <a href="https://www.google.com/maps/place/Pancho+Villa+State+Park/@31.8242497,-107.6414506,202m/data=!3m1!1e3!4m6!3m5!1s0x86dc207472c1fffb:0xf3842dd33a3c00d1!8m2!3d31.8242731!4d-107.6408135!16s%2Fg%2F11vj9dnxx?entry=ttu&g_ep=EgoyMDI2MDcyOS4wIKXMDSoASAFQAw%3D%3D" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="bg-white hover:bg-rose-50 text-[#BF7D83] font-bold px-7 py-3 rounded-full flex items-center gap-2.5 shadow-[0_4px_20px_rgba(191,125,131,0.35)] border-2 border-[#BF7D83] transition-all duration-300 hover:scale-105 active:scale-95 text-sm tracking-wide min-w-[220px] justify-center translate-y-10 sm:translate-y-12">
+                    <i class="fas fa-glass-cheers text-[#BF7D83] text-base"></i>
+                    <span>Ubicación Recepción</span>
+                </a>
+
+                <button onclick="goToPage(5)" class="text-white/70 hover:text-white animate-bounce transition-colors duration-300" aria-label="Página siguiente">
+                    <i class="fas fa-chevron-down text-2xl drop-shadow-lg"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- PAGINA 5 -->
+        <section id="pagina-5" class="w-full h-screen page-bg-5 relative flex flex-col justify-between items-center py-12">
+            <button onclick="goToPage(4)" class="text-white/70 hover:text-white transition-colors duration-300" aria-label="Página anterior">
+                <i class="fas fa-chevron-up text-2xl drop-shadow-lg"></i>
+            </button>
+            <button onclick="goToPage(6)" class="text-white/70 hover:text-white animate-bounce transition-colors duration-300" aria-label="Página siguiente">
+                <i class="fas fa-chevron-down text-2xl drop-shadow-lg"></i>
+            </button>
+        </section>
+
+        <!-- PAGINA 6 -->
+        <section id="pagina-6" class="w-full h-screen page-bg-6 relative flex flex-col justify-between items-center py-12">
+            <button onclick="goToPage(5)" class="text-white/70 hover:text-white transition-colors duration-300" aria-label="Página anterior">
+                <i class="fas fa-chevron-up text-2xl drop-shadow-lg"></i>
+            </button>
+
+            <!-- Botón Confirmar Asistencia (enlaza a la página de RSVP) -->
+            <a href="confirmacion.html" 
+               class="bg-white hover:bg-rose-50 text-[#BF7D83] font-bold px-7 py-3 rounded-full flex items-center gap-2.5 shadow-[0_4px_20px_rgba(191,125,131,0.35)] border-2 border-[#BF7D83] transition-all duration-300 hover:scale-105 active:scale-95 text-sm tracking-wide min-w-[220px] justify-center my-auto translate-y-[1vh]">
+                <i class="fas fa-heart text-[#BF7D83] text-lg"></i>
+                <span>Confirmar asistencia</span>
+            </a>
+
+            <button onclick="goToPage(7)" class="text-white/70 hover:text-white animate-bounce transition-colors duration-300" aria-label="Página siguiente">
+                <i class="fas fa-chevron-down text-2xl drop-shadow-lg"></i>
+            </button>
+        </section>
+
+        <!-- PAGINA 7 -->
+        <section id="pagina-7" class="w-full h-screen page-bg-7 relative flex flex-col justify-between items-center py-12">
+            <button onclick="goToPage(6)" class="text-white/70 hover:text-white transition-colors duration-300" aria-label="Página anterior">
+                <i class="fas fa-chevron-up text-2xl drop-shadow-lg"></i>
+            </button>
+
+            <!-- Contador Regresivo Estilo Rosa (#BF7D83) Sin Sombra Negra y Letra Menos Gruesa -->
+            <div class="my-auto -translate-y-36 sm:-translate-y-44 flex flex-col items-center gap-4 text-center w-full px-4">
+                <div class="flex items-start justify-center gap-2 sm:gap-4 text-white">
+                    
+                    <!-- Días -->
+                    <div class="flex flex-col items-center gap-1.5 sm:gap-2">
+                        <div class="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-[#BF7D83] bg-transparent shadow-[0_0_15px_rgba(191,125,131,0.4)]">
+                            <span id="cd-days" class="text-2xl sm:text-3xl font-bold text-[#BF7D83] leading-none">00</span>
+                        </div>
+                        <span class="text-[10px] sm:text-xs uppercase text-[#BF7D83] tracking-widest font-semibold">Días</span>
+                    </div>
+
+                    <span class="text-xl sm:text-2xl text-[#BF7D83] font-medium mt-5 sm:mt-6">:</span>
+
+                    <!-- Horas -->
+                    <div class="flex flex-col items-center gap-1.5 sm:gap-2">
+                        <div class="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-[#BF7D83] bg-transparent shadow-[0_0_15px_rgba(191,125,131,0.4)]">
+                            <span id="cd-hours" class="text-2xl sm:text-3xl font-bold text-[#BF7D83] leading-none">00</span>
+                        </div>
+                        <span class="text-[10px] sm:text-xs uppercase text-[#BF7D83] tracking-widest font-semibold">Horas</span>
+                    </div>
+
+                    <span class="text-xl sm:text-2xl text-[#BF7D83] font-medium mt-5 sm:mt-6">:</span>
+
+                    <!-- Minutos -->
+                    <div class="flex flex-col items-center gap-1.5 sm:gap-2">
+                        <div class="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-[#BF7D83] bg-transparent shadow-[0_0_15px_rgba(191,125,131,0.4)]">
+                            <span id="cd-minutes" class="text-2xl sm:text-3xl font-bold text-[#BF7D83] leading-none">00</span>
+                        </div>
+                        <span class="text-[10px] sm:text-xs uppercase text-[#BF7D83] tracking-widest font-semibold">Min</span>
+                    </div>
+
+                    <span class="text-xl sm:text-2xl text-[#BF7D83] font-medium mt-5 sm:mt-6">:</span>
+
+                    <!-- Segundos -->
+                    <div class="flex flex-col items-center gap-1.5 sm:gap-2">
+                        <div class="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-[#BF7D83] bg-transparent shadow-[0_0_15px_rgba(191,125,131,0.4)]">
+                            <span id="cd-seconds" class="text-2xl sm:text-3xl font-bold text-[#BF7D83] leading-none">00</span>
+                        </div>
+                        <span class="text-[10px] sm:text-xs uppercase text-[#BF7D83] tracking-widest font-semibold">Seg</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="goToPage(1)" class="text-white/70 hover:text-white transition-colors duration-300 text-xs flex flex-col items-center gap-1" aria-label="Volver al inicio">
+                <i class="fas fa-arrow-up text-lg drop-shadow-lg"></i>
+                <span class="drop-shadow">Inicio</span>
+            </button>
+        </section>
+    </main>
+
+    <script>
+        function goToPage(pageNum) {
+            const el = document.getElementById(`pagina-${pageNum}`);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        const audio = document.getElementById('bg-music');
+        const playIcon = document.getElementById('play-icon');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalTimeEl = document.getElementById('total-time');
+        let isPlaying = false;
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds === Infinity) return '00:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function updateUI(playing) {
+            isPlaying = playing;
+            if (playIcon) {
+                if (playing) {
+                    playIcon.className = 'fas fa-pause text-xl text-white';
+                } else {
+                    playIcon.className = 'fas fa-play text-xl text-white ml-0.5';
+                }
+            }
+        }
+
+        function playMusic() {
+            audio.play().then(() => {
+                updateUI(true);
+            }).catch(err => {
+                console.log("Autoplay prevent response:", err);
+                updateUI(false);
+            });
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                updateUI(false);
+            } else {
+                playMusic();
+            }
+        }
+
+        function seekAudio(val) {
+            if (audio.duration) {
+                audio.currentTime = (val / 100) * audio.duration;
+            }
+        }
+
+        function restartTrack() {
+            audio.currentTime = 0;
+            if (!isPlaying) playMusic();
+        }
+
+        function toggleHeart(btn) {
+            const icon = btn.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.className = 'fas fa-heart text-[#BF7D83]';
+            } else {
+                icon.className = 'far fa-heart';
+            }
+        }
+
+        function toggleShuffle(btn) {
+            btn.classList.toggle('text-[#BF7D83]');
+            btn.classList.toggle('opacity-100');
+        }
+
+        function toggleRepeat(btn) {
+            btn.classList.toggle('text-[#BF7D83]');
+            btn.classList.toggle('opacity-100');
+        }
+
+        audio.addEventListener('loadedmetadata', () => {
+            if (totalTimeEl) totalTimeEl.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const pct = (audio.currentTime / audio.duration) * 100;
+                if (progressBar) progressBar.value = pct;
+                if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
+                if (totalTimeEl && totalTimeEl.textContent === '00:00') {
+                    totalTimeEl.textContent = formatTime(audio.duration);
+                }
+            }
+        });
+
+        // Intenta reproducir automáticamente al cargar la página
+        window.addEventListener('load', playMusic);
+
+        // En navegadores que bloquean audio autoplay sin interacción
+        ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+            document.addEventListener(evt, function autoPlayHandler() {
+                if (!isPlaying && audio.paused) {
+                    playMusic();
+                }
+                document.removeEventListener(evt, autoPlayHandler);
+            }, { once: true });
+        });
+
+        function updateCountdown() {
+            const eventDate = new Date('2026-08-29T16:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = eventDate - now;
+
+            if (diff <= 0) {
+                const elDays = document.getElementById('cd-days');
+                const elHours = document.getElementById('cd-hours');
+                const elMinutes = document.getElementById('cd-minutes');
+                const elSeconds = document.getElementById('cd-seconds');
+                if (elDays) elDays.textContent = '00';
+                if (elHours) elHours.textContent = '00';
+                if (elMinutes) elMinutes.textContent = '00';
+                if (elSeconds) elSeconds.textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const elDays = document.getElementById('cd-days');
+            const elHours = document.getElementById('cd-hours');
+            const elMinutes = document.getElementById('cd-minutes');
+            const elSeconds = document.getElementById('cd-seconds');
+
+            if (elDays) elDays.textContent = String(days).padStart(2, '0');
+            if (elHours) elHours.textContent = String(hours).padStart(2, '0');
+            if (elMinutes) elMinutes.textContent = String(minutes).padStart(2, '0');
+            if (elSeconds) elSeconds.textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
