@@ -98,22 +98,22 @@
         .envelope:active { transform: scale(.96); }
         .envelope .body {
             position: absolute; inset: 0;
-            background: #FDF4F1;
+            background: #BE797F;
             border-radius: 6px;
-            border: 1px solid #E9C8BE;
+            border: 1px solid #A5636A;
         }
         .envelope .flap {
             position: absolute; top: 0; left: 0; width: 100%; height: 0;
             border-left: 46px solid transparent;
             border-right: 46px solid transparent;
-            border-top: 40px solid #F3D9CF;
+            border-top: 40px solid #A5636A;
             transform-origin: top;
             transition: transform .5s ease;
             z-index: 2;
         }
         .envelope .heart {
             position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
-            color: #B76E79; font-size: 16px; z-index: 1;
+            color: #FDF4F1; font-size: 16px; z-index: 1;
         }
         .envelope.open .flap { transform: rotateX(180deg); }
 
@@ -137,13 +137,13 @@
             }
         }
 
-        /* Contador regresivo: 9% más pequeño y 5% más abajo */
+        /* Contador regresivo: 9%+5% más pequeño y 5%-2% más abajo (neto: sube) */
         .countdown-block {
-            transform: scale(0.91) translateY(calc(-9rem + 5vh));
+            transform: scale(0.8645) translateY(calc(-9rem + 3vh));
         }
         @media (min-width: 640px) {
             .countdown-block {
-                transform: scale(0.91) translateY(calc(-11rem + 5vh));
+                transform: scale(0.8645) translateY(calc(-11rem + 3vh));
             }
         }
     </style>
@@ -153,15 +153,15 @@
     <!-- PANTALLA DE APERTURA -->
     <div id="pantalla-apertura" class="fixed inset-0 z-50 page-bg-portada flex flex-col items-center justify-center gap-6">
         <div class="text-center px-6">
-            <p class="text-white/90 text-sm tracking-[0.3em] uppercase mb-2 drop-shadow-lg">Mis XV Años</p>
-            <h1 class="text-white text-4xl sm:text-5xl font-serif drop-shadow-lg mb-8">Destiny</h1>
+            <p class="text-[#BE797F] text-sm tracking-[0.3em] uppercase mb-2 drop-shadow-lg">Mis XV Años</p>
+            <h1 class="text-[#BE797F] text-4xl sm:text-5xl font-serif drop-shadow-lg mb-8">Destiny</h1>
         </div>
         <div id="sobre" class="envelope" onclick="abrirInvitacion()" role="button" aria-label="Abrir invitación" tabindex="0">
             <div class="body"></div>
             <i class="fas fa-heart heart"></i>
             <div class="flap"></div>
         </div>
-        <p class="text-white/80 text-xs tracking-widest uppercase mt-1 drop-shadow-lg">Toca el sobre para abrir</p>
+        <p class="text-[#BE797F] text-xs tracking-widest uppercase mt-1 drop-shadow-lg font-semibold">Toca el sobre para abrir</p>
     </div>
 
     <!-- Audio Player Instrumental -->
@@ -291,6 +291,8 @@
 
             <!-- Botón Confirmar Asistencia (enlaza a la página de RSVP) -->
             <a href="confirmacion.html" 
+               target="_blank"
+               rel="noopener noreferrer"
                class="bg-white hover:bg-rose-50 text-[#BF7D83] font-bold px-7 py-3 rounded-full flex items-center gap-2.5 shadow-[0_4px_20px_rgba(191,125,131,0.35)] border-2 border-[#BF7D83] transition-all duration-300 hover:scale-105 active:scale-95 text-sm tracking-wide min-w-[220px] justify-center my-auto translate-y-[1vh]">
                 <i class="fas fa-heart text-[#BF7D83] text-lg"></i>
                 <span>Confirmar asistencia</span>
