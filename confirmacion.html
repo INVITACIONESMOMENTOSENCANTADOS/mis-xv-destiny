@@ -297,10 +297,10 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-b);min-heig
 
 <script>
 /* ═════════════ storage layer: Firebase Firestore, con respaldo local ═════════════ */
-const SETTINGS_KEY = 'rsvp_settings';
-const FB_RSVP_COLLECTION = 'rsvps';
+const SETTINGS_KEY = 'rsvp_settings_destiny';
+const FB_RSVP_COLLECTION = 'rsvps_destiny';
 const FB_CONFIG_COLLECTION = 'config';
-const FB_SETTINGS_DOC_ID = 'settings';
+const FB_SETTINGS_DOC_ID = 'settings_destiny';
 
 let settings = { eventName:'Mis XV Años Destiny', eventDate:'Sáb. 29 de agosto 2026', adminPin:'1234' };
 let rsvps = [];
@@ -345,7 +345,7 @@ async function initLocal(){
     if(s){ settings = { ...settings, ...JSON.parse(s) }; }
   }catch(e){}
   try{
-    const raw = await localGet('rsvp_list');
+    const raw = await localGet('rsvp_list_destiny');
     rsvps = raw ? JSON.parse(raw) : [];
   }catch(e){ rsvps = []; }
 }
@@ -380,7 +380,7 @@ async function saveRsvpRemote(entry){
     try{ const { db, doc, setDoc } = window.__fb; await setDoc(doc(db, FB_RSVP_COLLECTION, entry.id), entry); return; }
     catch(e){ console.error('Error guardando en Firebase, se guardará localmente.', e); }
   }
-  await localSet('rsvp_list', JSON.stringify(rsvps));
+  await localSet('rsvp_list_destiny', JSON.stringify(rsvps));
 }
 
 async function deleteRsvpRemote(id){
@@ -389,7 +389,7 @@ async function deleteRsvpRemote(id){
     try{ const { db, doc, deleteDoc } = window.__fb; await deleteDoc(doc(db, FB_RSVP_COLLECTION, id)); return; }
     catch(e){ console.error('Error eliminando en Firebase, se intentará localmente.', e); }
   }
-  await localSet('rsvp_list', JSON.stringify(rsvps));
+  await localSet('rsvp_list_destiny', JSON.stringify(rsvps));
 }
 
 async function saveSettingsRemote(){

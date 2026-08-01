@@ -16,6 +16,15 @@
     <meta name="twitter:description" content="¡Acompáñame a celebrar mis XV años! 29 de agosto de 2026.">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/portada%2012.jpg">
 
+    <link rel="preconnect" href="https://raw.githubusercontent.com">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/INVITACIONESMOMENTOSENCANTADOS/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(9).jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n.jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(1).jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(2).jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(3).jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(4).jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(6).jpg">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/regina1503/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(8).jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -68,20 +77,91 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+
+        .page-bg-portada {
+            background-image: url('https://raw.githubusercontent.com/INVITACIONESMOMENTOSENCANTADOS/mis-xv-destiny/main/Mi%20primera%20Comuni%C3%B3n%20(9).jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Sobre animado en la pantalla de apertura */
+        .envelope {
+            width: 92px;
+            height: 64px;
+            position: relative;
+            cursor: pointer;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,.35));
+            transition: transform .25s ease;
+        }
+        .envelope:hover { transform: scale(1.05); }
+        .envelope:active { transform: scale(.96); }
+        .envelope .body {
+            position: absolute; inset: 0;
+            background: #FDF4F1;
+            border-radius: 6px;
+            border: 1px solid #E9C8BE;
+        }
+        .envelope .flap {
+            position: absolute; top: 0; left: 0; width: 100%; height: 0;
+            border-left: 46px solid transparent;
+            border-right: 46px solid transparent;
+            border-top: 40px solid #F3D9CF;
+            transform-origin: top;
+            transition: transform .5s ease;
+            z-index: 2;
+        }
+        .envelope .heart {
+            position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+            color: #B76E79; font-size: 16px; z-index: 1;
+        }
+        .envelope.open .flap { transform: rotateX(180deg); }
+
+        /* Reproductor de música: 10% más pequeño y 7% más abajo */
+        .music-player {
+            transform: scale(0.9) translateY(calc(-14rem + 7vh));
+        }
+        @media (min-width: 640px) {
+            .music-player {
+                transform: scale(0.9) translateY(calc(-18rem + 7vh));
+            }
+        }
+
+        /* Botón de ubicación de recepción: 5% más abajo */
+        .reception-btn {
+            transform: translateY(calc(2.5rem + 5vh));
+        }
+        @media (min-width: 640px) {
+            .reception-btn {
+                transform: translateY(calc(3rem + 5vh));
+            }
+        }
+
+        /* Contador regresivo: 9% más pequeño y 5% más abajo */
+        .countdown-block {
+            transform: scale(0.91) translateY(calc(-9rem + 5vh));
+        }
+        @media (min-width: 640px) {
+            .countdown-block {
+                transform: scale(0.91) translateY(calc(-11rem + 5vh));
+            }
+        }
     </style>
 </head>
 <body class="bg-black overflow-x-hidden relative">
 
     <!-- PANTALLA DE APERTURA -->
-    <div id="pantalla-apertura" class="fixed inset-0 z-50 page-bg-1 flex flex-col items-center justify-center gap-6">
+    <div id="pantalla-apertura" class="fixed inset-0 z-50 page-bg-portada flex flex-col items-center justify-center gap-6">
         <div class="text-center px-6">
             <p class="text-white/90 text-sm tracking-[0.3em] uppercase mb-2 drop-shadow-lg">Mis XV Años</p>
             <h1 class="text-white text-4xl sm:text-5xl font-serif drop-shadow-lg mb-8">Destiny</h1>
         </div>
-        <button onclick="abrirInvitacion()" class="bg-white hover:bg-rose-50 text-[#BF7D83] font-bold px-8 py-4 rounded-full flex items-center gap-2.5 shadow-[0_4px_20px_rgba(191,125,131,0.45)] border-2 border-[#BF7D83] transition-all duration-300 hover:scale-105 active:scale-95 text-sm tracking-wide">
-            <i class="fas fa-envelope-open-text text-[#BF7D83] text-base"></i>
-            <span>Abrir invitación</span>
-        </button>
+        <div id="sobre" class="envelope" onclick="abrirInvitacion()" role="button" aria-label="Abrir invitación" tabindex="0">
+            <div class="body"></div>
+            <i class="fas fa-heart heart"></i>
+            <div class="flap"></div>
+        </div>
+        <p class="text-white/80 text-xs tracking-widest uppercase mt-1 drop-shadow-lg">Toca el sobre para abrir</p>
     </div>
 
     <!-- Audio Player Instrumental -->
@@ -104,7 +184,7 @@
             </button>
 
             <!-- Reproductor de Música Estilo Reproductor Audio (Todo Rosa #BF7D83, sin fondo ni contornos oscuros) -->
-            <div class="my-auto -translate-y-56 sm:-translate-y-72 w-full max-w-xs sm:max-w-sm px-6 py-2 flex flex-col gap-4 text-[#BF7D83]">
+            <div class="my-auto w-full max-w-xs sm:max-w-sm px-6 py-2 flex flex-col gap-4 text-[#BF7D83] music-player">
                 
                 <!-- Barra de Progreso y Tiempos -->
                 <div class="flex flex-col gap-1.5 w-full">
@@ -182,7 +262,7 @@
                 <a href="https://www.google.com/maps/place/Pancho+Villa+State+Park/@31.8242497,-107.6414506,202m/data=!3m1!1e3!4m6!3m5!1s0x86dc207472c1fffb:0xf3842dd33a3c00d1!8m2!3d31.8242731!4d-107.6408135!16s%2Fg%2F11vj9dnxx?entry=ttu&g_ep=EgoyMDI2MDcyOS4wIKXMDSoASAFQAw%3D%3D" 
                    target="_blank" 
                    rel="noopener noreferrer" 
-                   class="bg-white hover:bg-rose-50 text-[#BF7D83] font-bold px-7 py-3 rounded-full flex items-center gap-2.5 shadow-[0_4px_20px_rgba(191,125,131,0.35)] border-2 border-[#BF7D83] transition-all duration-300 hover:scale-105 active:scale-95 text-sm tracking-wide min-w-[220px] justify-center translate-y-10 sm:translate-y-12">
+                   class="bg-white hover:bg-rose-50 text-[#BF7D83] font-bold px-7 py-3 rounded-full flex items-center gap-2.5 shadow-[0_4px_20px_rgba(191,125,131,0.35)] border-2 border-[#BF7D83] transition-all duration-300 hover:scale-105 active:scale-95 text-sm tracking-wide min-w-[220px] justify-center reception-btn">
                     <i class="fas fa-glass-cheers text-[#BF7D83] text-base"></i>
                     <span>Ubicación Recepción</span>
                 </a>
@@ -228,7 +308,7 @@
             </button>
 
             <!-- Contador Regresivo Estilo Rosa (#BF7D83) Sin Sombra Negra y Letra Menos Gruesa -->
-            <div class="my-auto -translate-y-36 sm:-translate-y-44 flex flex-col items-center gap-4 text-center w-full px-4">
+            <div class="my-auto flex flex-col items-center gap-4 text-center w-full px-4 countdown-block">
                 <div class="flex items-start justify-center gap-2 sm:gap-4 text-white">
                     
                     <!-- Días -->
@@ -384,19 +464,30 @@
             }
         });
 
-        // El botón "Abrir invitación" cuenta como interacción real del usuario,
+        // El clic en el sobre cuenta como interacción real del usuario,
         // así que el navegador permite reproducir el audio con sonido de inmediato.
         function abrirInvitacion() {
             const pantalla = document.getElementById('pantalla-apertura');
+            const sobre = document.getElementById('sobre');
             playMusic();
+            if (sobre) sobre.classList.add('open');
             if (pantalla) {
-                pantalla.style.transition = 'opacity 0.6s ease';
-                pantalla.style.opacity = '0';
                 setTimeout(() => {
-                    pantalla.style.display = 'none';
-                }, 600);
+                    pantalla.style.transition = 'opacity 0.6s ease';
+                    pantalla.style.opacity = '0';
+                    setTimeout(() => {
+                        pantalla.style.display = 'none';
+                    }, 600);
+                }, 500);
             }
         }
+
+        document.getElementById('sobre')?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                abrirInvitacion();
+            }
+        });
 
         function updateCountdown() {
             const eventDate = new Date('2026-08-29T16:00:00').getTime();
