@@ -125,23 +125,38 @@
         }
         .sparkle {
             position: absolute;
-            top: -5%;
-            color: #FDF4F1;
-            text-shadow: 0 0 6px #BE797F, 0 0 12px #fff;
+            top: -8%;
             opacity: 0;
-            animation-name: sparkle-fall, sparkle-fade;
+            animation-name: sparkle-drift, sparkle-twinkle;
             animation-timing-function: linear, ease-in-out;
             animation-iteration-count: infinite, infinite;
+            will-change: transform, opacity;
         }
-        @keyframes sparkle-fall {
-            from { transform: translateY(0) rotate(0deg); }
-            to   { transform: translateY(110vh) rotate(360deg); }
+        .sparkle.star {
+            color: #FFF7EE;
+            text-shadow:
+                0 0 4px #FFF3E0,
+                0 0 10px #F3C6D0,
+                0 0 18px #BE797F;
         }
-        @keyframes sparkle-fade {
-            0%   { opacity: 0; }
-            10%  { opacity: 1; }
-            85%  { opacity: 1; }
-            100% { opacity: 0; }
+        .sparkle.dust {
+            border-radius: 50%;
+            background: radial-gradient(circle, #FFF9F2 0%, #F6CBD6 45%, rgba(190,121,127,0) 75%);
+            box-shadow: 0 0 8px 2px rgba(255, 235, 240, 0.6);
+        }
+        @keyframes sparkle-drift {
+            0%   { transform: translate(0, 0) rotate(0deg); }
+            25%  { transform: translate(18px, 25vh) rotate(90deg); }
+            50%  { transform: translate(-14px, 50vh) rotate(180deg); }
+            75%  { transform: translate(16px, 75vh) rotate(270deg); }
+            100% { transform: translate(0, 108vh) rotate(360deg); }
+        }
+        @keyframes sparkle-twinkle {
+            0%   { opacity: 0; transform: scale(.4); }
+            8%   { opacity: 1; transform: scale(1); }
+            50%  { opacity: .55; transform: scale(.85); }
+            92%  { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(.4); }
         }
 
         /* Reproductor de música: 10% más pequeño y 7%-5% más abajo (neto: sube) */
@@ -518,24 +533,36 @@
             }
         });
 
-        // Genera brillos mágicos cayendo sobre la pantalla de apertura
+        // Genera brillos mágicos cayendo sobre la pantalla de apertura:
+        // mezcla de estrellitas titilantes y partículas de luz suave (polvo de hada),
+        // cada una con su propio vaivén y parpadeo para un efecto más orgánico.
         (function crearBrillos(){
             const capa = document.getElementById('sparkle-layer');
             if (!capa) return;
-            const simbolos = ['✦', '✧', '✨', '❋', '·'];
-            const total = 28;
+            const simbolos = ['✦', '✧', '✨', '✩', '❋'];
+            const total = 34;
             for (let i = 0; i < total; i++) {
-                const s = document.createElement('span');
-                s.className = 'sparkle';
-                s.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
+                const esEstrella = Math.random() > 0.4;
+                const s = document.createElement(esEstrella ? 'span' : 'div');
+                s.className = 'sparkle ' + (esEstrella ? 'star' : 'dust');
+
+                if (esEstrella) {
+                    s.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
+                    const size = 8 + Math.random() * 18;
+                    s.style.fontSize = size + 'px';
+                } else {
+                    const size = 3 + Math.random() * 6;
+                    s.style.width = size + 'px';
+                    s.style.height = size + 'px';
+                }
+
                 const left = Math.random() * 100;
-                const size = 10 + Math.random() * 16;
-                const fallDuration = 6 + Math.random() * 8;
-                const fadeDuration = fallDuration;
-                const delay = Math.random() * 10;
+                const driftDuration = 9 + Math.random() * 10;
+                const twinkleDuration = 1.6 + Math.random() * 2.2;
+                const delay = Math.random() * 14;
+
                 s.style.left = left + '%';
-                s.style.fontSize = size + 'px';
-                s.style.animationDuration = `${fallDuration}s, ${fadeDuration}s`;
+                s.style.animationDuration = `${driftDuration}s, ${twinkleDuration}s`;
                 s.style.animationDelay = `${delay}s, ${delay}s`;
                 capa.appendChild(s);
             }
